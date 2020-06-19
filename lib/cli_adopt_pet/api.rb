@@ -6,7 +6,6 @@ class CliAdoptPet::API
     def initialize(location, type)
         @location = location
         @type = type
-        get_listings
     end
     def get_listings
         Dotenv.load('file.env')
@@ -20,18 +19,23 @@ class CliAdoptPet::API
         })
         # binding.pry - this is a great place to debug. See what `resp` is - is it the data you want? 
         #                                               Is it a message saying you forgot some authorization?
-        #spas = resp["businesses"]
-        #LondonSpas::Spa.new_from_collection(spas)
+
         
         #respJSON = JSON.parse(resp.to_s)
         #puts newJSON
         
         pets = resp["animals"]
-        #binding.pry
-        pets.each {|pet| 
+        if resp.include?("Could not determine location")
+            puts "Could not determine location. Please try again"
+            #CliAdoptPet::CLI.all[0].call
+        else
+            pets.each {|pet| 
             newPet = CliAdoptPet::Pet.new(pet)
             #binding.pry
-        }
+            }
+        end
+        #binding.pry
+
         
         #binding.pry
     end

@@ -1,5 +1,5 @@
 class CliAdoptPet::Pet
-    attr_accessor :name, :breeds, :id, :size, :description, :gender
+    attr_reader :name, :breeds, :id, :size, :description, :gender, :status, :email, :house_trained, :spayed_neutered, :personalities
     @@all = []
     def initialize(attrs)
         # attrs.each do |k, v|
@@ -22,6 +22,11 @@ class CliAdoptPet::Pet
         else
             @spayed_neutered = "No"
         end
+        @personalities = attrs["tags"].join(", ")
+        # attrs["tags"].each {|personality|
+        #     binding.pry
+        #     @personalities = @personalities + " #{personality}"
+        # }
         save
     end
     def self.all
@@ -34,5 +39,16 @@ class CliAdoptPet::Pet
         @@all.each_with_index {|pet, index|
             puts "#{index + 1}. #{pet.name}"
         }
+    end
+    def self.pet_details(pet_selected)
+        @pet_profile = @@all[pet_selected]
+        puts "Name: #{@pet_profile.name}"
+        puts "Breed: #{@pet_profile.breeds}"
+        puts "Description: #{@pet_profile.description}"
+        puts "Status: #{@pet_profile.status}"
+        puts "Spayed or neutered: #{@pet_profile.spayed_neutered}"
+        puts "Size: #{@pet_profile.size}"
+        puts "Email: #{@pet_profile.email}"
+        puts "Personality: #{@pet_profile.personalities}"
     end
 end
