@@ -1,5 +1,5 @@
 class CliAdoptPet::Pet
-    attr_reader :name, :breeds, :id, :size, :description, :gender, :status, :email, :house_trained, :spayed_neutered, :personalities
+    attr_reader :name, :breeds, :id, :size, :description, :gender, :status, :email, :house_trained, :spayed_neutered, :personalities, :distance
     @@all = []
     def initialize(attrs)
         # attrs.each do |k, v|
@@ -23,6 +23,7 @@ class CliAdoptPet::Pet
             @spayed_neutered = "No"
         end
         @personalities = attrs["tags"].join(", ")
+        @distance = attrs["distance"]
         # attrs["tags"].each {|personality|
         #     binding.pry
         #     @personalities = @personalities + " #{personality}"
@@ -50,5 +51,6 @@ class CliAdoptPet::Pet
         puts "Size: #{@pet_profile.size}"
         puts "Email: #{@pet_profile.email}"
         puts "Personality: #{@pet_profile.personalities}"
+        puts "Distance: #{@pet_profile.distance.ceil} miles"
     end
 end

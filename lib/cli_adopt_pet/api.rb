@@ -25,9 +25,12 @@ class CliAdoptPet::API
         #puts newJSON
         
         pets = resp["animals"]
+        #binding.pry
         if resp.include?("Could not determine location")
-            puts "Could not determine location. Please try again"
+            puts "Could not determine location. Please try again."
             #CliAdoptPet::CLI.all[0].call
+        elsif resp.include?("not a valid animal type")
+            puts "Not a valid animal type. Please try again."
         else
             pets.each {|pet| 
             newPet = CliAdoptPet::Pet.new(pet)
