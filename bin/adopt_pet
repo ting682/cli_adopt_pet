@@ -3,5 +3,5 @@
 require_relative '../lib/cli_adopt_pet'
 
 
-#CliAdoptPet::CLI.new.call
-CliAdoptPet::API.get_listings
+CliAdoptPet::CLI.new.call
+#CliAdoptPet::API.get_listings
