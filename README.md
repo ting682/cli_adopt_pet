@@ -21,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Enter a valid zip code and choice of dog or cat. A set of pet profiles will appear showing an email for adoption and status availability.
 
 ## Development
 
