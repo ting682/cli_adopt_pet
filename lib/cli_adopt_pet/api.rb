@@ -31,6 +31,8 @@ class CliAdoptPet::API
             #CliAdoptPet::CLI.all[0].call
         elsif resp.include?("not a valid animal type")
             puts "Not a valid animal type. Please try again."
+        elsif resp.include?("Access token invalid or expired")
+            puts "Access token invalid or expired."
         else
             pets.each {|pet| 
             newPet = CliAdoptPet::Pet.new(pet)

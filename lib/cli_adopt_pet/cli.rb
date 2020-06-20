@@ -1,11 +1,5 @@
 class CliAdoptPet::CLI
-    # @@all = []
-    # def initialize
-    #     @@all << self
-    # end
-    # def self.all
-    #     @@all
-    # end
+
     def call
         puts "Welcome to pet finder!"
         puts "enter zip code"
