@@ -64,6 +64,14 @@ class CliAdoptPet::CLI
         #binding.pry
         if @contact == "y"
             CliAdoptPet::Pet.pet_contact(@pet_selected)
+            puts "Would you like to view the pet listings again? (y/n)"
+            @view_pet_listings = gets.strip.downcase
+            if @view_pet_listings == "y"
+                view_listings
+            elsif @view_pet_listings == "n"
+                goodbye
+                @looking = false
+            end
         elsif @contact == "n"
             puts "Would you like to view the pet listings again? (y/n)"
             @view_pet_listings = gets.strip.downcase
@@ -71,6 +79,7 @@ class CliAdoptPet::CLI
                 view_listings
             elsif @view_pet_listings == "n"
                 goodbye
+                @looking = false
             end
         else
             puts "Invalid selection. Please try again."
