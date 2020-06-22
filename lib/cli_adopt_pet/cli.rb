@@ -1,4 +1,6 @@
 class CliAdoptPet::CLI
+    @@mag="\e[1;35m"
+    @@white="\e[0m"
     @@valid_numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     def call
         puts "Welcome to adopt a pet CLI!"
@@ -21,56 +23,65 @@ class CliAdoptPet::CLI
     end
     
     def view_listings
-        until @looking == false
+        until @input == "exit"
             puts "Here are your list of pets in your location. Please select a pet for more information"
             CliAdoptPet::Pet.list_pets
             puts "Select a pet for details. If you would like to exit, type 'exit'"
             
-            @pet_selected = gets.strip
-            if @pet_selected == 'exit'
-                @looking = false
-                next
+            @input = gets.strip
+            if @input == "exit"
+                break
             else
-                @pet_selected = @pet_selected.strip.to_i - 1
+                @pet_selected = @input.strip.to_i - 1
                 #binding.pry
                 if @pet_selected.between?(0,6)
                     CliAdoptPet::Pet.pet_details(@pet_selected) 
+
                     view_contact
 
                 else
-                    puts "Invalid selection. Please try again."
+                    puts "#{@@mag}Invalid selection. Please try again.#{@@white}"
                     view_listings
                 end
             end
         end
+        
     end
     def view_contact
-        puts "Would you like to review the contact information? (y/n)"
-        @contact = gets.strip.downcase
-        #binding.pry
-        if @contact == "y"
-            CliAdoptPet::Pet.pet_contact(@pet_selected)
-            puts "Would you like to view the pet listings again? (y/n)"
-            @view_pet_listings = gets.strip.downcase
-            if @view_pet_listings == "y"
-                view_listings
-            elsif @view_pet_listings == "n"
-                goodbye
-                @looking = false
+        until @input == "exit"
+            puts "Would you like to review the contact information? (y/n)"
+            @input = gets.strip.downcase
+            #binding.pry
+            if @input == "y"
+                CliAdoptPet::Pet.pet_contact(@pet_selected)
+                puts "Would you like to view the pet listings again? (y/n)"
+                @input = gets.strip.downcase
+                if @input == "y"
+                    view_listings
+                elsif @input == "n" || @input == "exit"
+                    goodbye
+                    @input = "exit"
+                    break
+                else
+                    puts "Invalid entry. Please try again."
+                    view_contact
+                end
+            elsif @input == "n"
+                puts "Would you like to view the pet listings again? (y/n)"
+                @input = gets.strip.downcase
+                if @input == "y"
+                    view_listings
+                elsif @input == "n" || @input == "exit"
+                    goodbye
+                    @input = "exit"
+                    break
+                end
+            else
+                puts "#{@@mag}Invalid selection. Please try again.#{@@white}"
+                view_contact
             end
-        elsif @contact == "n"
-            puts "Would you like to view the pet listings again? (y/n)"
-            @view_pet_listings = gets.strip.downcase
-            if @view_pet_listings == "y"
-                view_listings
-            elsif @view_pet_listings == "n"
-                goodbye
-                @looking = false
-            end
-        else
-            puts "Invalid selection. Please try again."
-            view_contact
         end
+        
     end
     def goodbye
         puts "We hope you found a companion! Have a nice day!"
@@ -86,7 +97,7 @@ class CliAdoptPet::CLI
             if @check_zip_code.all? {|digit| @@valid_numbers.include?(digit)} && @zipcode.length == 5
                 @valid_zip_code = true        
             else
-                puts "Invalid zip code. Please try again."
+                puts "#{@@mag}Invalid zip code. Please try again.#{@@white}"
                 next
             end
         end
@@ -99,8 +110,9 @@ class CliAdoptPet::CLI
             if @type == "Cat" || @type == "Dog"
                 @valid_pet_type = true
             else
-                puts "Invalid pet type. Please try again."
+                puts "#{@@mag}Invalid pet type. Please try again.#{@@white}"
             end
         end
     end
+
 end
