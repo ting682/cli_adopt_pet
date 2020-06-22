@@ -4,17 +4,17 @@ class CliAdoptPet::CLI
         puts "Welcome to adopt a pet CLI!"
         enter_zip_code
         enter_cat_or_dog
-        
-
-        
+        #if both enter_zip_code and enter_cat_dog have valid selections, perform GET request
         request = CliAdoptPet::API.new(@zipcode, @type)
         #binding.pry
+
         if request.get_listings && request.location_valid == true 
             view_listings
 
         elsif request.valid_token == false
-        
+            #end program
         elsif request.location_valid == false
+            #if location is invalid, try again.
             call   
         end
 
@@ -32,7 +32,7 @@ class CliAdoptPet::CLI
                 next
             else
                 @pet_selected = @pet_selected.strip.to_i - 1
-
+                #binding.pry
                 if @pet_selected.between?(0,6)
                     CliAdoptPet::Pet.pet_details(@pet_selected) 
                     view_contact

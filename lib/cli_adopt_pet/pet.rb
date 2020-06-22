@@ -3,15 +3,13 @@ class CliAdoptPet::Pet
     @@blu="\e[1;34m"
     @@mag="\e[1;35m"
     @@white="\e[0m"
-    attr_reader :name, :breeds, :url, :size, :description, :gender, :status, :email, :house_trained, :spayed_neutered, :personalities, :distance, :address1, :address2, :city, :state, :postcode, :phone, :gender
+    attr_reader :name, :breeds, :size, :description, :gender, :status, :email, :house_trained, :spayed_neutered, :personalities, :distance, :address1, :address2, :city, :state, :postcode, :phone, :gender
     @@all = []
     def initialize(attrs)
-        # attrs.each do |k, v|
-        #     send("#{k}=", v)
-        # end
+
         @name = attrs["name"]
         @breeds = attrs["breeds"]["primary"]
-        @id = attrs["url"]
+        #@url = attrs["url"]
         @size = attrs["size"]
         @gender = attrs["gender"]
         @description = attrs["description"].chomp
@@ -89,4 +87,7 @@ class CliAdoptPet::Pet
         end
 
     end
+    # def self.find_by_name(name)
+    #     @@all.find {|pet| pet.name == name}
+    # end
 end
