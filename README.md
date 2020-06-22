@@ -2,6 +2,7 @@
 
 Welcome to adopt a pet CLI! This gem is used to search and review pets that are up for adoption based on your zip code. This gem uses [HTTParty](https://github.com/jnunemaker/httparty) to retrieve data from [Petfinder API](https://www.petfinder.com/developers/v2/docs/)
 
+This also makes use of the [dotenv](https://github.com/bkeepers/dotenv) gem to keep access token data safe.
 
 ## Installation
 

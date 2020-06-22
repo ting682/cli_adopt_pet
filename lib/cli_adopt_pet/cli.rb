@@ -1,7 +1,7 @@
 class CliAdoptPet::CLI
     @@valid_numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     def call
-        puts "Welcome to pet finder!"
+        puts "Welcome to adopt a pet CLI!"
         enter_zip_code
         enter_cat_or_dog
         
