@@ -1,11 +1,14 @@
 require 'dotenv'
 
-
+@@mag="\e[1;35m"
+@@white="\e[0m"
 class CliAdoptPet::API
-    attr_accessor :type, :breed, :size, :location, :request
+    attr_accessor :type, :breed, :size, :location, :request, :location_valid, :valid_token
     def initialize(location, type)
         @location = location
         @type = type
+        @location_valid = true
+        @valid_token = true
     end
     def get_listings
         Dotenv.load('file.env')
@@ -27,13 +30,15 @@ class CliAdoptPet::API
         pets = resp["animals"]
         #binding.pry
         if resp.include?("Could not determine location")
-            puts "Could not determine location. Please try again."
+            puts "#{@@mag}Could not determine location. Please try again.#{@@white}"
+            @location_valid = false
             #CliAdoptPet::CLI.all[0].call
-        elsif resp.include?("not a valid animal type")
-            puts "Not a valid animal type. Please try again."
         elsif resp.include?("Access token invalid or expired")
-            puts "Access token invalid or expired."
+            puts "#{@@mag}Access token invalid or expired.#{@@white}"
+            @valid_token = false
         else
+            @valid_token = true
+            @location_valid = true
             pets.each {|pet| 
             newPet = CliAdoptPet::Pet.new(pet)
             #binding.pry

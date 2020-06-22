@@ -1,39 +1,25 @@
 class CliAdoptPet::CLI
-
+    @@valid_numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     def call
         puts "Welcome to pet finder!"
-        puts "enter zip code"
-        @zipcode = gets.strip
-        puts "enter cat or dog"
-        @type = gets.strip.capitalize!
-        request = CliAdoptPet::API.new(@zipcode, @type)
-        if request.get_listings
-            view_listings
-            #until @looking == false 
-                # puts "Would you like to review another pet? (y/n)"
-                # @review_again = gets.strip.downcase
+        enter_zip_code
+        enter_cat_or_dog
+        
 
-                
-                # if @review_again == "y"
-                #     CliAdoptPet::Pet.list_pets
-                #     puts "Select a pet for details"
-                #     @pet_selected = gets.strip.to_i - 1
-                #     #binding.pry
-                #     if @pet_selected.between?(0,6)
-                #         CliAdoptPet::Pet.pet_details(@pet_selected) 
-                #     else
-                #         puts "Invalid selection. Please try again."
-                #     end
-                    
-                # else
-                #     @looking = false
-                # end
-            #end
-        else
-            self.call
+        
+        request = CliAdoptPet::API.new(@zipcode, @type)
+        #binding.pry
+        if request.get_listings && request.location_valid == true 
+            view_listings
+
+        elsif request.valid_token == false
+        
+        elsif request.location_valid == false
+            call   
         end
 
     end
+    
     def view_listings
         until @looking == false
             puts "Here are your list of pets in your location. Please select a pet for more information"
@@ -88,5 +74,33 @@ class CliAdoptPet::CLI
     end
     def goodbye
         puts "We hope you found a companion! Have a nice day!"
+    end
+    def enter_zip_code
+        #binding.pry
+        @valid_zip_code = false
+        until @valid_zip_code == true
+            puts "Please enter your zip code."
+            @zipcode = gets.strip
+            @check_zip_code = @zipcode.split("")
+            #binding.pry
+            if @check_zip_code.all? {|digit| @@valid_numbers.include?(digit)} && @zipcode.length == 5
+                @valid_zip_code = true        
+            else
+                puts "Invalid zip code. Please try again."
+                next
+            end
+        end
+    end
+    def enter_cat_or_dog
+        @valid_pet_type = false
+        until @valid_pet_type == true
+            puts "enter cat or dog"
+            @type = gets.strip.capitalize!
+            if @type == "Cat" || @type == "Dog"
+                @valid_pet_type = true
+            else
+                puts "Invalid pet type. Please try again."
+            end
+        end
     end
 end

@@ -1,6 +1,6 @@
 # CliAdoptPet
 
-Welcome to adopt a pet CLI! This gem is used to search and review pets that are up for adoption based on your location. 
+Welcome to adopt a pet CLI! This gem is used to search and review pets that are up for adoption based on your zip code. 
 
 
 ## Installation
@@ -18,6 +18,8 @@ And then execute:
 Or install it yourself as:
 
     $ gem install cli_adopt_pet
+
+You will need to have a valid token from [petfinder](https://www.petfinder.com/developers/v2/docs/)
 
 ## Usage
 
