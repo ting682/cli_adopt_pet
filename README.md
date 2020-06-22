@@ -24,6 +24,8 @@ You will need to have a valid token from [Petfinder](https://www.petfinder.com/d
 
 ## Usage
 
+run './bin/adopt_pet'
+
 Enter a valid zip code and choice of dog or cat. A set of pet profiles will appear showing an email for adoption and status availability.
 
 ## Development
