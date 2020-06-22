@@ -3,7 +3,7 @@ class CliAdoptPet::Pet
     @@blu="\e[1;34m"
     @@mag="\e[1;35m"
     @@white="\e[0m"
-    attr_reader :name, :breeds, :id, :size, :description, :gender, :status, :email, :house_trained, :spayed_neutered, :personalities, :distance, :address1, :address2, :city, :state, :postcode, :phone
+    attr_reader :name, :breeds, :url, :size, :description, :gender, :status, :email, :house_trained, :spayed_neutered, :personalities, :distance, :address1, :address2, :city, :state, :postcode, :phone, :gender
     @@all = []
     def initialize(attrs)
         # attrs.each do |k, v|
@@ -11,9 +11,10 @@ class CliAdoptPet::Pet
         # end
         @name = attrs["name"]
         @breeds = attrs["breeds"]["primary"]
-        @id = attrs["id"]
+        @id = attrs["url"]
         @size = attrs["size"]
-        @description = attrs["description"]
+        @gender = attrs["gender"]
+        @description = attrs["description"].chomp
         @status = attrs["status"]
         @email = attrs["contact"]["email"]
         if attrs["attributes"]["house_trained"]
@@ -56,27 +57,34 @@ class CliAdoptPet::Pet
         @pet_profile = @@all[pet_selected]
         puts "#{@@blu}Name:#{@@white} #{@pet_profile.name}"
         puts "#{@@blu}Breed:#{@@white} #{@pet_profile.breeds}"
+        puts "#{@@blu}Gender:#{@@white} #{@pet_profile.gender}"
         puts "#{@@blu}Description:#{@@white} #{@pet_profile.description}"
         puts "#{@@blu}Status:#{@@white} #{@pet_profile.status}"
-        puts "#{@@blu}Spayed or neutered:#{@@white} #{@pet_profile.spayed_neutered}"
+        if @pet_profile.gender == "Female"
+            puts "#{@@blu}Spayed?:#{@@white} #{@pet_profile.spayed_neutered}"
+        else
+            puts "#{@@blu}Neutered?:#{@@white} #{@pet_profile.spayed_neutered}"
+        end
+        
         puts "#{@@blu}Size:#{@@white} #{@pet_profile.size}"
         
-        puts "#{@@blu}Personality:#{@@white} #{@pet_profile.personalities}"
+        puts "#{@@blu}Personality:#{@@white} #{@pet_profile.personalities}" unless @pet_profile.personalities == ""
         puts "#{@@blu}Distance:#{@@white} #{@pet_profile.distance.ceil} miles"
+        puts "#{@@blu}House trained?:#{@@white} #{@pet_profile.house_trained}"
     end
     def self.pet_contact(pet_selected)
         @pet_profile = @@all[pet_selected]
         puts "#{@@grn}Email:#{@@white} #{@pet_profile.email}"
         if @pet_profile.phone == nil
-            puts "No phone number provided."
+            puts "#{@@grn}No phone number provided.#{@@white}"
         else
             puts "#{@@grn}Phone number:#{@@white} #{@pet_profile.phone}"
         end
         if @pet_profile.address1 == nil
-            puts "No address provided."
+            puts "#{@@grn}No address provided.#{@@white}"
         else
             puts "#{@@grn}Address:#{@@white} #{@pet_profile.address1}"
-            puts "         #{@pet_profile.address2}"
+            puts "         #{@pet_profile.address2}" unless @pet_profile.address2 == nil
             puts "         #{@pet_profile.city}, #{@pet_profile.state} #{@pet_profile.postcode}"
         end
 
