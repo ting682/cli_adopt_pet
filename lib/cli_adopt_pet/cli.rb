@@ -34,8 +34,10 @@ class CliAdoptPet::CLI
             else
                 @pet_selected = @input.strip.to_i - 1
                 #binding.pry
+                
                 if @pet_selected.between?(0,6)
-                    CliAdoptPet::Pet.pet_details(@pet_selected) 
+                    @current_pet = CliAdoptPet::Pet.all[@pet_selected]
+                    @current_pet.pet_details 
 
                     view_contact
 
@@ -53,7 +55,7 @@ class CliAdoptPet::CLI
             @input = gets.strip.downcase
             #binding.pry
             if @input == "y"
-                CliAdoptPet::Pet.pet_contact(@pet_selected)
+                @current_pet.pet_contact
                 puts "Would you like to view the pet listings again? (y/n)"
                 @input = gets.strip.downcase
                 if @input == "y"
