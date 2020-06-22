@@ -19,7 +19,7 @@ Or install it yourself as:
 
     $ gem install cli_adopt_pet
 
-You will need to have a valid token from [Petfinder](https://www.petfinder.com/developers/v2/docs/)
+You will need to have a valid token from [Petfinder](https://www.petfinder.com/developers/v2/docs/) and create file.env from the valid token and call the variable "ACCESS_TOKEN"
 
 ## Usage
 
