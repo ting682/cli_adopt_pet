@@ -12,7 +12,7 @@ class CliAdoptPet::Pet
         #@url = attrs["url"]
         @size = attrs["size"]
         @gender = attrs["gender"]
-        @description = attrs["description"].chomp
+        @description = attrs["description"].gsub(/\s+/, " ")
         @status = attrs["status"]
         @email = attrs["contact"]["email"]
         if attrs["attributes"]["house_trained"]

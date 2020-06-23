@@ -1,8 +1,10 @@
+class InvalidAccessToken < StandardError ; end
+
 require 'dotenv'
 
-@@mag="\e[1;35m"
-@@white="\e[0m"
 class CliAdoptPet::API
+    @@mag="\e[1;35m"
+    @@white="\e[0m"
     attr_accessor :type, :breed, :size, :location, :request, :location_valid, :valid_token
     def initialize(location, type)
         @location = location
@@ -23,12 +25,13 @@ class CliAdoptPet::API
         pets = resp["animals"]
         #binding.pry
         if resp.include?("Could not determine location")
-            
+
             puts "#{@@mag}Could not determine location. Please try again.#{@@white}"
             @location_valid = false
             
         elsif resp.include?("Access token invalid or expired")
-            puts "#{@@mag}Access token invalid or expired.#{@@white}"
+            #puts "#{@@mag}Access token invalid or expired.#{@@white}"
+            raise InvalidAccessToken, "Invalid access token"
             @valid_token = false
         else
             @valid_token = true
