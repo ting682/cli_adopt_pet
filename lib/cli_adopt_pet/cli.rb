@@ -38,52 +38,45 @@ class CliAdoptPet::CLI
                 if @pet_selected.between?(0,6)
                     @current_pet = CliAdoptPet::Pet.all[@pet_selected]
                     @current_pet.pet_details 
-
-                    view_contact
-
+                    puts "Would you like to review the contact information? (y/n)"
+                    @input = gets.strip.downcase
+                    if @input == "y"
+                        view_contact
+                    elsif @input == "n"
+                        ask_pet_listings
+                    elsif @input == "exit"
+                        goodbye
+                    else
+                        puts "#{@@mag}Invalid selection. Please try again.#{@@white}"
+                        view_pet_details
+                    end
                 else
                     puts "#{@@mag}Invalid selection. Please try again.#{@@white}"
-                    view_listings
+                    view_pet_details
                 end
             end
         end
         
     end
     def view_contact
-        until @input == "exit"
-            puts "Would you like to review the contact information? (y/n)"
-            @input = gets.strip.downcase
+        #until @input == "exit"
+
             #binding.pry
-            if @input == "y"
-                @current_pet.pet_contact
-                puts "Would you like to view the pet listings again? (y/n)"
-                @input = gets.strip.downcase
-                if @input == "y"
-                    view_listings
-                elsif @input == "n" || @input == "exit"
-                    goodbye
-                    @input = "exit"
-                    break
-                else
-                    puts "Invalid entry. Please try again."
-                    view_contact
-                end
-            elsif @input == "n"
-                puts "Would you like to view the pet listings again? (y/n)"
-                @input = gets.strip.downcase
-                if @input == "y"
-                    view_listings
-                elsif @input == "n" || @input == "exit"
-                    goodbye
-                    @input = "exit"
-                    break
-                end
-            else
-                puts "#{@@mag}Invalid selection. Please try again.#{@@white}"
-                view_contact
-            end
+            
+        @current_pet.pet_contact
+        puts "Would you like to view the pet listings again? (y/n)"
+        @input = gets.strip.downcase
+        if @input == "y"
+            view_listings
+        elsif @input == "n" || @input == "exit"
+            goodbye
+            @input = "exit"
+            #break
+        else
+            puts "#{@@mag}Invalid selection. Please try again.#{@@white}"
+            view_contact
         end
-        
+
     end
     def goodbye
         puts "We hope you found a companion! Have a nice day!"
@@ -114,6 +107,36 @@ class CliAdoptPet::CLI
             else
                 puts "#{@@mag}Invalid pet type. Please try again.#{@@white}"
             end
+        end
+    end
+
+    def view_pet_details
+        @current_pet.pet_details 
+        puts "Would you like to review the contact information? (y/n)"
+        @input = gets.strip.downcase
+        if @input == "y"
+            view_contact
+        elsif @input == "n"
+            ask_pet_listings
+            #break
+        elsif @input == "exit"
+            goodbye
+        else
+            puts "#{@@mag}Invalid selection. Please try again.#{@@white}"
+            view_pet_details
+        end
+    end
+    def ask_pet_listings
+        puts "Would you like to view the pet listings? (y/n)"
+        @input = gets.strip.downcase
+        if @input == "y"
+            view_listings
+        elsif @input == "n" || @input == "exit"
+            goodbye
+            @input = "exit"
+        else
+            puts "#{@@mag}Invalid selection. Please try again.#{@@white}"
+            ask_pet_listings
         end
     end
 
