@@ -79,6 +79,7 @@ class CliAdoptPet::CLI
     def goodbye
         puts "We hope you found a companion! Have a nice day!"
     end
+    # #enter_zip_code requests the user to provide a zip code. If the zip code is not a 5 digit number, the user is asked to re-enter a valid zip code.
     def enter_zip_code
         #binding.pry
         @valid_zip_code = false
@@ -95,6 +96,7 @@ class CliAdoptPet::CLI
             end
         end
     end
+    # #enter_cat_or_dog requests the user to enter a cat or dog as the pet to adopt. 
     def enter_cat_or_dog
         @valid_pet_type = false
         until @valid_pet_type == true
@@ -107,7 +109,7 @@ class CliAdoptPet::CLI
             end
         end
     end
-
+    # #view_pet_details allows the user to view the individual pet's profile then asks whether or not the user would like to review the contact information for the pet.
     def view_pet_details
         @current_pet.pet_details 
         puts "Would you like to review the contact information? (y/n)"
@@ -124,6 +126,7 @@ class CliAdoptPet::CLI
             view_pet_details
         end
     end
+    # #ask_pet_listings asks the user whether they would like to view the overall pet listings for their area.
     def ask_pet_listings
         puts "Would you like to view the pet listings? (y/n)"
         @input = gets.strip.downcase
