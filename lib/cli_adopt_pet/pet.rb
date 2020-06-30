@@ -89,9 +89,9 @@ class CliAdoptPet::Pet
         end
 
     end
-
+    # #to_sentence takes the personalities and forms it into a sentence.
     def to_sentence(array)
-        array_join = []
+        
         case array.length
 
         when 2

@@ -6,7 +6,7 @@ class CliAdoptPet::CLI
         puts "Welcome to adopt a pet CLI!"
         enter_zip_code
         enter_cat_or_dog
-        #if both enter_zip_code and enter_cat_dog have valid selections, perform GET request
+        #if both enter_zip_code and enter_cat_dog have valid selections, instantiate then perform GET request
         request = CliAdoptPet::API.new(@zipcode, @pet_type)
         #binding.pry
 
@@ -20,8 +20,9 @@ class CliAdoptPet::CLI
         end
 
     end
-    
+    # #view_listings method reviews the list of pets and checks if the user would like to view pet details
     def view_listings
+
         until @input == "exit"
             puts "Here are your list of pets in your location. Please select a pet for more information"
             CliAdoptPet::Pet.list_pets
@@ -57,10 +58,8 @@ class CliAdoptPet::CLI
         end
         
     end
+    # #view_contact shows the contact information in order to adopt the individual pet and provides the option of viewing the pet listings again.
     def view_contact
-        #until @input == "exit"
-
-            #binding.pry
             
         @current_pet.pet_contact
         puts "Would you like to view the pet listings again? (y/n)"
@@ -70,7 +69,7 @@ class CliAdoptPet::CLI
         elsif @input == "n" || @input == "exit"
             goodbye
             @input = "exit"
-            #break
+            
         else
             puts "#{@@mag}Invalid selection. Please try again.#{@@white}"
             view_contact
