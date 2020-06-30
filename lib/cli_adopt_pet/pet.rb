@@ -98,12 +98,22 @@ class CliAdoptPet::Pet
         when 1
         
         when 2
-            array.join(" and ")
+            array.join(" and ").downcase
         
         when 3..10
             array_copy = array
+            array_return = []
             array_copy[-1] = "and #{array_copy[-1]}"
-            array_copy.join(', ')
+            array_copy.each_with_index {|element, index|
+                
+                if index == 0
+                    array_return << element
+                else
+                    array_return << element.downcase
+                end
+                
+            }
+            array_return.join(', ')
             
         end
     end
