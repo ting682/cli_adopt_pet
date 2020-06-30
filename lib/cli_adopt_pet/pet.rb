@@ -26,7 +26,9 @@ class CliAdoptPet::Pet
             @spayed_neutered = "No"
         end
         
-        @personalities = attrs["tags"].join(", ")
+        #@personalities = attrs["tags"].join(", ")
+        @personalities = to_sentence(attrs["tags"])
+        #binding.pry
         @distance = attrs["distance"]
         @phone = attrs["contact"]["phone"]
         
@@ -65,7 +67,7 @@ class CliAdoptPet::Pet
         
         puts "#{@@blu}Size:#{@@white} #{@size}"
         
-        puts "#{@@blu}Personality:#{@@white} #{@personalities}" unless @personalities == ""
+        puts "#{@@blu}Personality:#{@@white} #{@personalities}" unless @personalities == "" || @personalities == nil
         puts "#{@@blu}Distance:#{@@white} #{@distance.ceil} miles"
         puts "#{@@blu}House trained?:#{@@white} #{@house_trained}"
     end
@@ -87,4 +89,22 @@ class CliAdoptPet::Pet
 
     end
 
+    def to_sentence(array)
+        array_join = []
+        case array.length
+
+        when 0
+        
+        when 1
+        
+        when 2
+            array.join(" and ")
+        
+        when 3..10
+            array_copy = array
+            array_copy[-1] = "and #{array_copy[-1]}"
+            array_copy.join(', ')
+            
+        end
+    end
 end
