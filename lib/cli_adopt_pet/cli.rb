@@ -100,8 +100,8 @@ class CliAdoptPet::CLI
         @valid_pet_type = false
         until @valid_pet_type == true
             puts "enter cat or dog"
-            @pet_type = gets.strip.capitalize!
-            if @pet_type == "Cat" || @pet_type == "Dog"
+            @pet_type = gets.strip.downcase
+            if @pet_type == "cat" || @pet_type == "dog"
                 @valid_pet_type = true
             else
                 puts "#{@@mag}Invalid pet type. Please try again.#{@@white}"
