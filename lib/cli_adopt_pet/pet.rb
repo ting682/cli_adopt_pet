@@ -95,7 +95,8 @@ class CliAdoptPet::Pet
         case array.length
 
         when 2
-            array.join(" and ").downcase
+            array[1] = array[1].downcase
+            array.join(" and ")
         
         when 3..10
             #array_copy = array
