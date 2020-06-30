@@ -13,8 +13,7 @@ class CliAdoptPet::CLI
         if request.get_listings && request.location_valid == true 
             view_listings
 
-        elsif request.valid_token == false
-            #end program
+
         elsif request.location_valid == false
             #if location is invalid, try again.
             call   
