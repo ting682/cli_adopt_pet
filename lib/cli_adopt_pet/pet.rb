@@ -49,7 +49,7 @@ class CliAdoptPet::Pet
         @@all << self
     end
     def self.list_pets
-        @@all.each_with_index {|pet, index|
+        self.all.each_with_index {|pet, index|
             puts "#{index + 1}. #{pet.name}"
         }
     end
