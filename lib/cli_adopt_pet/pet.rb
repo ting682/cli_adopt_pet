@@ -25,6 +25,7 @@ class CliAdoptPet::Pet
         else
             @spayed_neutered = "No"
         end
+        
         @personalities = attrs["tags"].join(", ")
         @distance = attrs["distance"]
         @phone = attrs["contact"]["phone"]
@@ -85,7 +86,5 @@ class CliAdoptPet::Pet
         end
 
     end
-    # def self.find_by_name(name)
-    #     @@all.find {|pet| pet.name == name}
-    # end
+
 end
