@@ -7,7 +7,7 @@ class CliAdoptPet::CLI
         enter_zip_code
         enter_cat_or_dog
         #if both enter_zip_code and enter_cat_dog have valid selections, perform GET request
-        request = CliAdoptPet::API.new(@zipcode, @type)
+        request = CliAdoptPet::API.new(@zipcode, @pet_type)
         #binding.pry
 
         if request.get_listings && request.location_valid == true 
@@ -100,8 +100,8 @@ class CliAdoptPet::CLI
         @valid_pet_type = false
         until @valid_pet_type == true
             puts "enter cat or dog"
-            @type = gets.strip.capitalize!
-            if @type == "Cat" || @type == "Dog"
+            @pet_type = gets.strip.capitalize!
+            if @pet_type == "Cat" || @pet_type == "Dog"
                 @valid_pet_type = true
             else
                 puts "#{@@mag}Invalid pet type. Please try again.#{@@white}"
