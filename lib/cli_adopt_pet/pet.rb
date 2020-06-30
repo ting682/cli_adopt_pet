@@ -37,8 +37,9 @@ class CliAdoptPet::Pet
         @city = attrs["contact"]["address"]["city"]
         @state = attrs["contact"]["address"]["state"]
         @postcode = attrs["contact"]["address"]["postcode"]
-        save
+        
         @id = @@all.length - 1
+        save
         #binding.pry
     end
     def self.all
@@ -93,18 +94,14 @@ class CliAdoptPet::Pet
         array_join = []
         case array.length
 
-        when 0
-        
-        when 1
-        
         when 2
             array.join(" and ").downcase
         
         when 3..10
-            array_copy = array
+            #array_copy = array
             array_return = []
-            array_copy[-1] = "and #{array_copy[-1]}"
-            array_copy.each_with_index {|element, index|
+            array[-1] = "and #{array[-1]}"
+            array.each_with_index {|element, index|
                 
                 if index == 0
                     array_return << element
