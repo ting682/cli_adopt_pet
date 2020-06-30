@@ -5,7 +5,7 @@ require 'dotenv'
 class CliAdoptPet::API
     @@mag="\e[1;35m"
     @@white="\e[0m"
-    attr_accessor :type, :breed, :size, :location, :request, :location_valid, :valid_token
+    attr_accessor :pet_type, :location, :request, :location_valid, :valid_token
     def initialize(location, pet_type)
         @location = location
         @pet_type = pet_type
