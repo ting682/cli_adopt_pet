@@ -10,7 +10,7 @@ class CliAdoptPet::API
         @location = location
         @type = type
         @location_valid = true
-        @valid_token = true
+        
     end
     def get_listings
         Dotenv.load('file.env')
@@ -32,9 +32,9 @@ class CliAdoptPet::API
         elsif resp.include?("Access token invalid or expired")
             #puts "#{@@mag}Access token invalid or expired.#{@@white}"
             raise InvalidAccessToken, "Invalid access token"
-            @valid_token = false
+            
         else
-            @valid_token = true
+           
             @location_valid = true
             pets.each {|pet| 
             newPet = CliAdoptPet::Pet.new(pet)
