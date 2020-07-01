@@ -40,11 +40,7 @@ class CliAdoptPet::API
             @location_valid = true
 
             #iterate each pet hash and instantiate new pet object based on individual attributes
-            pets.each {|pet| 
-                
-                newPet = CliAdoptPet::Pet.new(pet)
-                
-            }
+            pets.each {|pet| CliAdoptPet::Pet.new(pet)}
         end
         
 

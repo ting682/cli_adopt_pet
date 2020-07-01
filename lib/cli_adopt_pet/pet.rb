@@ -102,17 +102,18 @@ class CliAdoptPet::Pet
             #array_copy = array
             array_return = []
             array[-1] = "and #{array[-1]}"
-            array.each_with_index {|element, index|
+            array.map.with_index(1) do |element, index|
                 
-                if index == 0
-                    array_return << element
+                if index == 1
+                    element
                 else
-                    array_return << element.downcase
+                    element.downcase
                 end
                 
-            }
-            array_return.join(', ')
+            end.join(', ')
+            
             
         end
     end
 end
+
