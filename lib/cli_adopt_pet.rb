@@ -1,5 +1,5 @@
 require_relative "cli_adopt_pet/version"
-require 'pry'
+#require 'pry'
 require 'httparty'
 require 'dotenv/load'
 require_relative './cli_adopt_pet/cli'

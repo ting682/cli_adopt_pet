@@ -48,47 +48,7 @@ class CliAdoptPet::Pet
     def save
         @@all << self
     end
-    def self.list_pets
-        self.all.each_with_index {|pet, index|
-            puts "#{index + 1}. #{pet.name}"
-        }
-    end
-    def pet_details
-        
-        puts "#{@@blu}Name:#{@@white} #{@name}"
-        puts "#{@@blu}Breed:#{@@white} #{@breeds}"
-        puts "#{@@blu}Gender:#{@@white} #{@gender}"
-        puts "#{@@blu}Description:#{@@white} #{@description}"
-        puts "#{@@blu}Status:#{@@white} #{@status}"
-        if @gender == "Female"
-            puts "#{@@blu}Spayed?:#{@@white} #{@spayed_neutered}"
-        else
-            puts "#{@@blu}Neutered?:#{@@white} #{@spayed_neutered}"
-        end
-        
-        puts "#{@@blu}Size:#{@@white} #{@size}"
-        
-        puts "#{@@blu}Personality:#{@@white} #{@personalities}" unless @personalities == "" || @personalities == nil
-        puts "#{@@blu}Distance:#{@@white} #{@distance.ceil} miles"
-        puts "#{@@blu}House trained?:#{@@white} #{@house_trained}"
-    end
-    def pet_contact
-        
-        puts "#{@@grn}Email:#{@@white} #{@email}"
-        if @phone == nil
-            puts "#{@@grn}No phone number provided.#{@@white}"
-        else
-            puts "#{@@grn}Phone number:#{@@white} #{@phone}"
-        end
-        if @address1 == nil
-            puts "#{@@grn}No address provided.#{@@white}"
-        else
-            puts "#{@@grn}Address:#{@@white} #{@address1}"
-            puts "         #{@address2}" unless @address2 == nil
-            puts "         #{@city}, #{@state} #{@postcode}"
-        end
 
-    end
     # #to_sentence takes the personalities and forms it into a sentence.
     def to_sentence(array)
         

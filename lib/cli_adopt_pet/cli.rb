@@ -1,4 +1,7 @@
 class CliAdoptPet::CLI
+
+    @@grn="\e[1;32m"
+    @@blu="\e[1;34m"
     @@mag="\e[1;35m"
     @@white="\e[0m"
     @@valid_numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -25,7 +28,7 @@ class CliAdoptPet::CLI
 
         until @input == "exit"
             puts "Here are your list of pets in your location. Please select a pet for more information"
-            CliAdoptPet::Pet.list_pets
+            list_pets
             puts "Select a pet for details. If you would like to exit, type 'exit'"
             
             @input = gets.strip
@@ -37,7 +40,7 @@ class CliAdoptPet::CLI
                 
                 if @pet_selected.between?(0,6)
                     @current_pet = CliAdoptPet::Pet.all[@pet_selected]
-                    @current_pet.pet_details 
+                    pet_details(@current_pet)
                     puts "Would you like to review the contact information? (y/n)"
                     @input = gets.strip.downcase
                     if @input == "y"
@@ -61,7 +64,7 @@ class CliAdoptPet::CLI
     # #view_contact shows the contact information in order to adopt the individual pet and provides the option of viewing the pet listings again.
     def view_contact
             
-        @current_pet.pet_contact
+        pet_contact(@current_pet)
         puts "Would you like to view the pet listings again? (y/n)"
         @input = gets.strip.downcase
         if @input == "y"
@@ -111,7 +114,7 @@ class CliAdoptPet::CLI
     end
     # #view_pet_details allows the user to view the individual pet's profile then asks whether or not the user would like to review the contact information for the pet.
     def view_pet_details
-        @current_pet.pet_details 
+        pet_details(@current_pet)
         puts "Would you like to review the contact information? (y/n)"
         @input = gets.strip.downcase
         if @input == "y"
@@ -141,4 +144,45 @@ class CliAdoptPet::CLI
         end
     end
 
+    def list_pets
+            CliAdoptPet::Pet.all.each_with_index {|pet, index|
+            puts "#{index + 1}. #{pet.name}"
+        }
+    end
+    def pet_details(pet)
+        
+        puts "#{@@blu}Name:#{@@white} #{pet.name}"
+        puts "#{@@blu}Breed:#{@@white} #{pet.breeds}"
+        puts "#{@@blu}Gender:#{@@white} #{pet.gender}"
+        puts "#{@@blu}Description:#{@@white} #{pet.description}"
+        puts "#{@@blu}Status:#{@@white} #{pet.status}"
+        if @gender == "Female"
+            puts "#{@@blu}Spayed?:#{@@white} #{pet.spayed_neutered}"
+        else
+            puts "#{@@blu}Neutered?:#{@@white} #{pet.spayed_neutered}"
+        end
+        
+        puts "#{@@blu}Size:#{@@white} #{pet.size}"
+        
+        puts "#{@@blu}Personality:#{@@white} #{pet.personalities}" unless pet.personalities == "" || pet.personalities == nil
+        puts "#{@@blu}Distance:#{@@white} #{pet.distance.ceil} miles"
+        puts "#{@@blu}House trained?:#{@@white} #{pet.house_trained}"
+    end
+    def pet_contact(pet)
+        
+        puts "#{@@grn}Email:#{@@white} #{pet.email}"
+        if @phone == nil
+            puts "#{@@grn}No phone number provided.#{@@white}"
+        else
+            puts "#{@@grn}Phone number:#{@@white} #{pet.phone}"
+        end
+        if @address1 == nil
+            puts "#{@@grn}No address provided.#{@@white}"
+        else
+            puts "#{@@grn}Address:#{@@white} #{pet.address1}"
+            puts "         #{pet.address2}" unless pet.address2 == nil
+            puts "         #{pet.city}, #{pet.state} #{pet.postcode}"
+        end
+
+    end
 end
